@@ -1,2 +1,1 @@
-# livrariaRecuperacao20261
-Atividade de recuperação
+# recuperacao-2026-1
