@@ -112,7 +112,7 @@
                             <label>
                                 Preço de Venda (R$):
                                 <br>
-                                <input name="precoVenda" id="precoVenda" maxlength="20" type="Text"></input>
+                                <input name="precoVenda" id="precoVenda" placeholder="" maxlength="20" type="Text"></input>
                             </label>
 
 
@@ -149,7 +149,31 @@
             precoVenda: form_postagem.precoVenda.value
         }
 
-        fetch(`/livros/cadastrar`, {
+        var valor = 0
+
+        if (corpo.precoCompra >= 100 && (corpo.fkGenero == 'horror' || corpo.fkGenero == 'romance')) {
+            
+            valor = 1
+        }
+        
+        if (corpo.precoCompra <= 50 && (corpo.fkGenero == 'poesia' || corpo.fkGenero == 'horror')) {
+            corpo.precoVenda.value = corpo.precoCompra * 1.25
+
+
+        }
+        
+        if (corpo.precoCompra > 50 && corpo.precoCompra < 100 && (corpo.fkGenero == 'fantasia')) {
+            corpo.precoVenda.value = corpo.precoCompra * 1.275
+        }
+        
+        if (valor == 1) {
+            alert(`O livro ${titulo} é do gênero ${genero}, e seu preço de compra é ${precoCompra}, Sendo assim, o seu preço de venda deve ser 22,5% maior do que este valor. informe o preço de venda de ${precoCompra * 1.225}`)
+    
+        }
+
+        else {
+
+            fetch(`/livros/cadastrar`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -174,6 +198,7 @@
 
         });
 
+    }
         return false;
 
     }
